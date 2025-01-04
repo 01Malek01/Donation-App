@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation page</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="donation-page">
+        <h2 class="donation-page__form-title poppins-semibold">Tell us about yourself</h2>
+        <form class="donation-page__form--personal" action="">
+            <div class="donation-page__form--name">
+                <label class="poppins-regular" for="name" >Your name</label>
+                <input class="donation-page__form-input poppins-regular"  required type="text" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="donation-page__form--email">
+                <label class="poppins-regular" for="email">Your email</label>
+                <input class="donation-page__form-input poppins-regular"  required type="email" id="email" name="email" placeholder="Your Email" required>
+            </div>
+        </form>
+
+        <h2 class="donation-page__form-title poppins-semibold">How much would you like to donate?</h2>
+        <form class="donation-page__form--amount" action="">
+            <input class="donation-page__form-input--amount poppins-regular" type="number" id="amount" name="amount" required>
+        </form>
+        <h2 class="donation-page__donation-choice-title poppins-semibold">Choose how you would like to donate</h2>
+
+        <div class="donation-page__choices">
+            <div class="poppins-regular" id="paypal-button-container"></div>
+            <div class="poppins-regular" id="result-message"></div>
+        </div>
+    </main>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AXZS4952dsCPjLGhKklcbM00Qw7Z5WaDAtLatwWXW9nHMSHO2jhcbFexKlLYLCJJiueCHWDIhZun7fam&currency=USD"></script>
+    <script src="/js/paypal.js"></script>
+</body>
+</html>
