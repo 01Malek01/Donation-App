@@ -1,3 +1,4 @@
+// constants
 const donationAmount = document.getElementById("amount");
 const donationName = document.getElementById("name");
 const donationEmail = document.getElementById("email");
@@ -10,11 +11,13 @@ donationAmount.addEventListener("change", (e) => {
 
 donationName.addEventListener("change", (e) => {
     console.log("Name changed:", e.target.value);
-    });
-    donationEmail.addEventListener("change", (e) => {
-        console.log("Email changed:", e.target.value);
-        });
+});
+donationEmail.addEventListener("change", (e) => {
+    console.log("Email changed:", e.target.value);
+});
 
+
+// Show Paypal buttons
 window.paypal
     .Buttons({
         style: {
@@ -54,10 +57,7 @@ window.paypal
                             id: Math.floor(Math.random() * 1000000),
                             amount: amount.toFixed(2) // Ensure 2 decimal places
                         },
-                        payer: {
-                            name: donationName.value,
-                            email: donationEmail.value
-                        }
+                        
                     }),
                 });
 
@@ -77,6 +77,7 @@ window.paypal
 
         async onApprove(data, actions) {
             try {
+                // send the payment details to the server (not secure, there are better options)
                 const response = await fetch(
                     `/api/v1/orders/${data.orderID}/capture?payerName=${donationName.value}&payerEmail=${donationEmail.value}&amountValue=${donationAmount.value}`,
                     {
@@ -96,7 +97,7 @@ window.paypal
                 const transaction = orderData.purchase_units[0].payments.captures[0];
                 resultMessage.innerHTML = `
                     <h3>Thank you for your payment!</h3>
-                      <p>You donated: ${transaction.amount.value}</p>
+                      <p>You donated: ${transaction.amount.value}$</p>
                 `;
             } catch (error) {
                 console.error(error);

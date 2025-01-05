@@ -4,6 +4,7 @@
     padding: 0;
 }
 
+/* for poppins font */
 .poppins-light {
     font-family: "Poppins", serif;
     font-weight: 300;
@@ -44,6 +45,9 @@ body {
     align-items: center;
 }
 
+
+
+/* Home page styles */
 .donation {
     max-width: 800px;
     margin: 50px;
@@ -62,6 +66,11 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+@media  (max-width: 768px) {
+     .donation__title {
+        font-size: 2em;
+        }
+}
 
 .donation__content {
     margin-bottom: 40px;
@@ -73,6 +82,12 @@ body {
     margin-bottom: 20px;
     font-size: 1.1em;
 }
+
+@media (max-width: 768px) {
+    .donation__text {
+        font-size: 1em;
+        }
+ }
 
 .donation__button-container {
     display: flex;
@@ -96,6 +111,13 @@ body {
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
 }
 
+@media (max-width: 768px) {
+    .donation__button {
+        padding: 10px 20px;
+        font-size: 18px;
+        }
+        }
+
 .donation__button:hover {
     background: linear-gradient(45deg, #2980b9, #3498db);
     transform: translateY(-2px);
@@ -114,6 +136,11 @@ body {
     border-radius: 50%;
     position: relative;
     transition: transform 0.3s ease;
+}
+@media (max-width:768px){
+    .face{
+        display: none;
+    }
 }
 
 .eyes {
@@ -153,6 +180,8 @@ body {
     transform: rotate(0deg) scale(1.1);
 }
 
+
+/* Donation page styles */
 .donation-page {
     display: flex;
     flex-direction: column;
@@ -189,3 +218,10 @@ body {
     justify-content: space-between;
     gap: 20px;
 }
+
+/* Footer styles */
+
+footer{
+    margin-top: 50px;
+}
+

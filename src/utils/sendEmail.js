@@ -47,24 +47,6 @@ class EmailSender {
     }
 }
 
-// Create a singleton instance
 const emailSender = new EmailSender();
 export default emailSender;
 
-// Usage example:
-// import emailSender from './utils/sendEmail.js';
-// 
-// try {
-//     const result = await emailSender.sendEmail(
-//         'recipient@example.com',
-//         'Thank you for your donation',
-//         'We appreciate your generous contribution!'
-//     );
-//     if (result.success) {
-//         console.log('Email sent successfully');
-//     } else {
-//         console.error('Failed to send email:', result.error);
-//     }
-// } catch (error) {
-//     console.error('Error:', error);
-// }

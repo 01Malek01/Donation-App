@@ -9,10 +9,8 @@ import {
 import dotenv from 'dotenv';
 import emailSender from "../utils/sendEmail.js";
 
-// Ensure environment variables are loaded
 dotenv.config();
 
-// Debug environment variables
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID?.trim();
 const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET?.trim();
 
@@ -43,9 +41,9 @@ const paymentsController = new PaymentsController(client);
  */
 export const createOrderController = async (req, res) => {
     try {
-        const { cart, payer } = req.body;
-        console.log('Received cart data:', cart);
-        console.log('Received payer data:', payer);
+        const { cart } = req.body;
+        // console.log('Received cart data:', cart);
+        // console.log('Received payer data:', payer);
 
         if (!cart || !cart.amount) {
             return res.status(400).json({ error: "Amount is required" });
@@ -69,12 +67,7 @@ export const createOrderController = async (req, res) => {
                         },
                     },
                 ],
-                payer: {
-                    name: {
-                        given_name: payer.name,
-                    },
-                    email_address: payer.email,
-                },
+               
             },
             prefer: "return=minimal",
         };
@@ -99,6 +92,7 @@ export const createOrderController = async (req, res) => {
 export const captureOrderController = async (req, res) => {
     try {
         const { orderID } = req.params;
+
         const { payerEmail,payerName, amountValue} = req.query;
 
 
@@ -108,11 +102,14 @@ export const captureOrderController = async (req, res) => {
         };
 
         const { body, ...httpResponse } = await ordersController.ordersCapture(collect);
-
+        // A better way to get payment details is by getting them from the body
+        // But will not work in sandbox
+        
         // const amountValue = body.purchase_units[0]?.payments?.captures[0]?.amount?.value;
 
-        // After capturing, send an email to the payer
 
+
+        // After capturing, send an email to the payer
         await emailSender.sendEmail(
             payerEmail, 
             "Thank you for your donation!", 
