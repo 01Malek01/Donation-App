@@ -16,6 +16,8 @@ This project involves creating a simple website where users can donate money usi
 - **Invoice Generation**: After successful payment, an invoice is sent to the user's email.
 - **Basic User Information**: Only essential details like name, email, amount, and payment type are collected.
 
+NOTE: To test payment you have to use a PayPal sandbox account as this app is not for production.
+To make the app suitable for production, you must have a real account on PayPal and adjust the PayPal script and env variables with the ones you get from your real account.
 ---
 
 ## **Technologies Used**
