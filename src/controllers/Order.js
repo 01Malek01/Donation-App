@@ -92,31 +92,39 @@ export const createOrderController = async (req, res) => {
 export const captureOrderController = async (req, res) => {
     try {
         const { orderID } = req.params;
-
-        const { payerEmail,payerName, amountValue} = req.query;
-
+        const { payerEmail, payerName, amountValue } = req.query;
 
         const collect = {
             id: orderID,
             prefer: "return=minimal",
         };
 
+        // Capture the PayPal order
         const { body, ...httpResponse } = await ordersController.ordersCapture(collect);
-        // A better way to get payment details is by getting them from the body
-        // But will not work in sandbox
-        
-        // const amountValue = body.purchase_units[0]?.payments?.captures[0]?.amount?.value;
 
+        //  transaction details
+        const capturedDetails = JSON.parse(body);
+        const transactionID = capturedDetails.id;
+        const transactionStatus = capturedDetails.status;
 
+        const emailContent = `
+            <h1>Transaction Successful!</h1>
+            <p>Thank you, <b>${payerName}</b>, for your generous donation!</p>
+            <h2>Transaction Details:</h2>
+            <p><b>Transaction ID:</b> ${transactionID}</p>
+            <p><b>Transaction Status:</b> ${transactionStatus}</p>
+            <p>Amount:${amountValue}$</p>
+        `;
 
-        // After capturing, send an email to the payer
+        // Send an email to the payer with the invoice
         await emailSender.sendEmail(
-            payerEmail, 
-            "Thank you for your donation!", 
-            `<h1>Hey <b>${payerName}</b>,</h1> You donated $<b>${amountValue}</b>! <p>We appreciate your generous contribution ♥!</p>`
+            payerEmail,
+            "Your Donation Receipt",
+            emailContent
         );
 
-        res.status(httpResponse.statusCode).json(JSON.parse(body));
+        // Respond to the client
+        res.status(httpResponse.statusCode).json(capturedDetails);
     } catch (error) {
         console.error("Failed to capture order:", error);
         if (error instanceof ApiError) {
@@ -126,3 +134,4 @@ export const captureOrderController = async (req, res) => {
         }
     }
 };
+
